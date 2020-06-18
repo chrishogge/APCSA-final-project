@@ -21,9 +21,9 @@ public class Controller extends HttpServlet {
 	  
 	  public void init()
 	  {
-	    final String url = "jdbc:mysql://localhost:3306/library?serverTimezone=EST";
-	    final String username = "root";
-	    final String password = "rootpwd";
+		final String url = getServletContext().getInitParameter("JDBC-URL");
+		final String username = getServletContext().getInitParameter("JDBC-USERNAME");
+		final String password = getServletContext().getInitParameter("JDBC-PASSWORD");
 	    
 	    dao = new DoctorDAO(url, username, password);
 	  }
