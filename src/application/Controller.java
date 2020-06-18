@@ -43,7 +43,13 @@ public class Controller extends HttpServlet {
 	    
 	    try {
 	      switch (action) {
-		      case "/update":
+	      	  case "/add":
+		      case "/edit":
+			      showEditForm(request, response);
+			    	break;
+		      case "/insert":
+		    	  insertDoctor(request,response);
+		     case "/update":
 		          updateDoctor(request, response);
 		          break;
 	        default:
@@ -67,10 +73,12 @@ public class Controller extends HttpServlet {
 	  
 	  private void updateDoctor(HttpServletRequest request, HttpServletResponse response)
 			    throws SQLException, ServletException, IOException
-			{	
-			  final String action = request.getParameter("action");
+			{
+			  final String action = request.getParameter("action") != null
+			    ? request.getParameter("action")
+			    : request.getParameter("submit").toLowerCase();
 			  final int id = Integer.parseInt(request.getParameter("doc_id"));
-			  
+				
 			  Doctor doctor = dao.getDoctor(id);
 			  switch (action) {
 			    case "active":
@@ -79,9 +87,54 @@ public class Controller extends HttpServlet {
 			    case "inactive":
 			      doctor.setActive(false);
 			      break;
+			    case "save":
+			      String first_name = request.getParameter("first_name");
+			      String last_name = request.getParameter("last_name");
+			      int department_id = Integer.parseInt(request.getParameter("department_id"));
+					
+			      doctor.setfirst_name(first_name);
+			      doctor.setlast_name(last_name);
+			      doctor.setdepartment_id(department_id);
+			      break;
+			    case "delete":
+			      deleteDoctor(id, request, response);
+			      return;
+			    }
+
+			    dao.updateDoctor(doctor);
+			    response.sendRedirect(request.getContextPath() + "/");
 			  }
-			  dao.updateDoctor(doctor);
+	  
+	  private void deleteDoctor(final int id, HttpServletRequest request, HttpServletResponse response)
+			    throws SQLException, ServletException, IOException
+			{	
+			  dao.deleteDoctor(dao.getDoctor(id));	
+			  response.sendRedirect(request.getContextPath() + "/");
+			}
+	  
+	  private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+			    throws SQLException, ServletException, IOException
+			{
+			  try {
+			    final int id = Integer.parseInt(request.getParameter("doc_id"));
+			    
+			    Doctor doctor = dao.getDoctor(id);
+			    request.setAttribute("doctor", doctor);
+			  } finally {
+			    RequestDispatcher dispatcher = request.getRequestDispatcher("doctorform.jsp");
+			    dispatcher.forward(request, response);
+			  }
+			}
+	  
+	  private void insertDoctor(HttpServletRequest request, HttpServletResponse response)
+			    throws SQLException, ServletException, IOException
+			{
+			  String first_name = request.getParameter("first_name");
+			  String last_name = request.getParameter("last_name");
+			  int department_id = Integer.parseInt(request.getParameter("department_id"));
+			  int ssn = Integer.parseInt(request.getParameter("ssn"));
 			  
+			  dao.insertDoctor(ssn, first_name, last_name, department_id);
 			  response.sendRedirect(request.getContextPath() + "/");
 			}
 	

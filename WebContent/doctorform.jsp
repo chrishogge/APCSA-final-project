@@ -12,8 +12,8 @@
       <h1>Doctor Management</h1>
       
       <div>
-        <a href="${pageContext.request.contextPath}/">VIEW ALL</a>
-        <a href="${pageContext.request.contextPath}/add">ADD A DOCTOR</a> 
+        <a href="${pageContext.request.contextPath}/" class="header-button">VIEW ALL</a>
+        <a href="${pageContext.request.contextPath}/add" class="header-button">ADD A DOCTOR</a> 
       </div>
     </div>
     <div>
@@ -42,8 +42,10 @@
             Active
             <input type="text" name="active" value="<c:out value="${doctor.active}" />" />
           </label>
-          <input type="submit" value="Save" name="submit" />
-          <input type="submit" value="Delete" name="submit" />
+          <div class="form-actions">
+	          <input type="submit" value="Save" name="submit" />
+	          <input type="submit" value="Delete" name="submit" />
+          </div>
         </form>
       </c:if>
       <c:if test="${doctor == null}">
@@ -65,7 +67,13 @@
           </label>
           <label>
             Department ID
-            <input type="text" name="department_id" />
+            <select name="department_id">
+			  <c:forEach begin="1" end="10" varStatus="loop">
+			    <option value="${loop.index}" <c:if test="${doctor.department_id == loop.index}">selected</c:if>>
+			      ${loop.index}
+			    </option>
+			  </c:forEach>
+			</select>
           </label>
           <label>
             Active

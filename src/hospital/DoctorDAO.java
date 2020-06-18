@@ -79,7 +79,7 @@ public class DoctorDAO {
 	    return doctors;
 	  }
 	  
-	  public boolean insertDoctor(Doctor doctor) throws SQLException
+	  public boolean insertDoctor(int ssn, String first_name, String last_name, int department_id) throws SQLException
 	  {
 	    final String sql = "INSERT INTO doctors (ssn, first_name, last_name, department_id) " +
 	        "VALUES (?, ?, ?, ?)";
@@ -87,10 +87,10 @@ public class DoctorDAO {
 	    Connection conn = getConnection();
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 	    
-	    pstmt.setString(2, doctor.getfirst_name());
-	    pstmt.setString(3, doctor.getlast_name());
-	    pstmt.setInt(1, doctor.getssn());
-	    pstmt.setInt(4, doctor.getdepartment_id());
+	    pstmt.setString(2, first_name);
+	    pstmt.setString(3, last_name);
+	    pstmt.setInt(1, ssn);
+	    pstmt.setInt(4, department_id);
 	    int affected = pstmt.executeUpdate();
 	    
 	    pstmt.close();

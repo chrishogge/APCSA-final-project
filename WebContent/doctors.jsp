@@ -9,8 +9,8 @@
 <body>
 <div>
       <h1>Doctor Management</h1>
-      <a href="${pageContext.request.contextPath}/">VIEW ALL</a>
-      <a href="${pageContext.request.contextPath}/add">ADD A DOCTOR</a> 
+      <a href="${pageContext.request.contextPath}/" class="header-button">VIEW ALL</a>
+      <a href="${pageContext.request.contextPath}/add" class="header-button">ADD A DOCTOR</a> 
     </div>
     <div>
       <table border="1">
@@ -31,13 +31,13 @@
             <td><c:out value="${doctor.doc_id}" /></td>
             <td>
 		         <a href="${pageContext.request.contextPath}/update?action=active&id=
-				  <c:out value="${doctor.doc_id}" />">MAKE ACTIVE
+				  <c:out value="${doctor.doc_id}" />" class="button">MAKE ACTIVE
 				</a>
 			        <a href="${pageContext.request.contextPath}/update?action=inactive&id=
-				  <c:out value="${doctor.doc_id}" />">MAKE INACTIVE
+				  <c:out value="${doctor.doc_id}" />" class="button">MAKE INACTIVE
 				</a>
 			        <a href="${pageContext.request.contextPath}/edit?id=
-				  <c:out value="${doctor.doc_id}" />">EDIT
+				  <c:out value="${doctor.doc_id}" />" class="button">EDIT
 				</a>
 		      </td>
           </tr>

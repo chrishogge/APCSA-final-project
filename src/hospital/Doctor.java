@@ -63,7 +63,12 @@ public class Doctor {
 		  this.active = active;
 	  }
 	  
+	  public void setfirst_name(String first_name) {
+		  this.first_name = first_name;
+	  }
 	  
-	  
+	  public void setlast_name(String last_name) {
+		  this.last_name = last_name;
+	  }
 	  
 }
