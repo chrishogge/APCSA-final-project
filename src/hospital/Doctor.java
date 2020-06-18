@@ -6,8 +6,9 @@ public class Doctor {
 	  private String first_name;
 	  private String last_name;
 	  private int department_id;
+	  private boolean active;
 
-	  public Doctor(int doc_id, int ssn, String first_name, String last_name, int department_id)
+	  public Doctor(int doc_id, int ssn, String first_name, String last_name, int department_id, boolean active)
 	  {
 	    super();
 
@@ -16,6 +17,7 @@ public class Doctor {
 	    this.last_name = last_name;
 	    this.ssn = ssn;
 	    this.department_id = department_id;
+	    this.active = active;
 	  }
 	  
 	  public int getDoc_id()
@@ -52,4 +54,16 @@ public class Doctor {
 	  {
 	    this.department_id = department_id;
 	  }
+	  
+	  public boolean getActive() {
+		  return active;
+	  }
+	  
+	  public void setActive(boolean active) {
+		  this.active = active;
+	  }
+	  
+	  
+	  
+	  
 }

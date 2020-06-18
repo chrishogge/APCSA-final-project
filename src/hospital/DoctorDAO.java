@@ -40,8 +40,9 @@ public class DoctorDAO {
 	      String last_name = rs.getString("last_name");
 	      int ssn = rs.getInt("ssn");
 	      int department_id = rs.getInt("department_id");
+	      boolean active = rs.getBoolean("active");
 	      
-	      doctor = new Doctor(doc_id, ssn, first_name, last_name, department_id);
+	      doctor = new Doctor(doc_id, ssn, first_name, last_name, department_id, active);
 	    }
 	    
 	    rs.close();
@@ -66,8 +67,9 @@ public class DoctorDAO {
 	      String last_name = rs.getString("last_name");
 	      int ssn = rs.getInt("ssn");
 	      int department_id = rs.getInt("department_id");
+	      boolean active = rs.getBoolean("active");
 	      
-	      doctors.add(new Doctor(id, ssn, first_name, last_name, department_id));
+	      doctors.add(new Doctor(id, ssn, first_name, last_name, department_id, active));
 	    }
 	    
 	    rs.close();

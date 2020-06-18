@@ -43,8 +43,11 @@ public class Controller extends HttpServlet {
 	    
 	    try {
 	      switch (action) {
+		      case "/update":
+		          updateDoctor(request, response);
+		          break;
 	        default:
-	          viewBooks(request, response);
+	          viewDoctors(request, response);
 	          break;
 	      }
 	    } catch (SQLException e) {
@@ -52,7 +55,7 @@ public class Controller extends HttpServlet {
 	    }
 	  }
 	  
-	  private void viewBooks(HttpServletRequest request, HttpServletResponse response)
+	  private void viewDoctors(HttpServletRequest request, HttpServletResponse response)
 	      throws SQLException, ServletException, IOException
 	  {
 	    List<Doctor> doctors = dao.getDoctors();
@@ -61,5 +64,25 @@ public class Controller extends HttpServlet {
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("doctors.jsp");
 	    dispatcher.forward(request, response);
 	  }
+	  
+	  private void updateDoctor(HttpServletRequest request, HttpServletResponse response)
+			    throws SQLException, ServletException, IOException
+			{	
+			  final String action = request.getParameter("action");
+			  final int id = Integer.parseInt(request.getParameter("doc_id"));
+			  
+			  Doctor doctor = dao.getDoctor(id);
+			  switch (action) {
+			    case "active":
+			      doctor.setActive(true);
+			      break;
+			    case "inactive":
+			      doctor.setActive(false);
+			      break;
+			  }
+			  dao.updateDoctor(doctor);
+			  
+			  response.sendRedirect(request.getContextPath() + "/");
+			}
 	
 }
